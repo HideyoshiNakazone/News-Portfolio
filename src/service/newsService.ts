@@ -18,4 +18,17 @@ export class NewsService extends BaseService {
         return await this.get<ISearch>(url, params);
     }
 
+    public async getSearchInTopHeadlinesByTitle(title: string): Promise<ISearch> {
+        let params = {
+            "q": title,
+            "searchIn": "title",
+            "country": "us",
+            "pageSize": 5,
+            "apiKey": this.apiKey
+        };
+        let url = new URL(this.apiUrl + "/top-headlines");
+
+        return await this.get<ISearch>(url, params);        
+    }
+
 };
