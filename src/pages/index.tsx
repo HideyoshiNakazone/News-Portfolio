@@ -5,26 +5,38 @@ import { NewsService } from "@/service/newsService";
 import React from "react";
 
 
-export async function getServerSideProps() {
-    return {
-        props: {
-            search: await (new NewsService()).getTopHeadlines()
-        }
-    }
-}
+class HomePage extends React.Component {
 
-interface HomeProp {
-    search: ISearch;
-}
-class HomePage extends React.Component<HomeProp> {
+    state = {
+        search: ({} as ISearch)
+    }
+
+    newsService = new NewsService();
+
+    fetchTopHeadlines() {
+        fetch('/api/news/headlines').then(res => {
+            res.json().then(search => {
+                this.setState({
+                    search: search
+                });
+            })
+        })
+    }
+
+    componentDidMount() {
+        this.fetchTopHeadlines();
+    }
     
     render(): React.ReactNode {
-        return (
-            <>
-                <h1>Hideyoshi News</h1>
-                <HeadlinesSlider search={this.props.search}/>
-            </>
-        )
+        if (this.state.search) {
+            return (
+                <>
+                    <h1>Hideyoshi News</h1>
+                    <HeadlinesSlider search={(this.state.search)}/>
+                </>
+            )
+        }
+        return null;
     }
 }
 

@@ -14,10 +14,6 @@ interface NewsProp {
 
 class News extends React.Component<NewsProp> {
 
-    redirectToArticle() {
-
-    }
-
     render(): React.ReactNode {
         let article = this.props.article
 
@@ -28,6 +24,11 @@ class News extends React.Component<NewsProp> {
                         src={article.urlToImage} 
                         alt="Article Image"
                         style={{objectFit:"cover"}}
+                        priority={true}
+                        sizes="
+                            (max-width: 400px),
+                            (max-width: 400px)
+                        "
                         fill={true}
                     />
                 </div>
