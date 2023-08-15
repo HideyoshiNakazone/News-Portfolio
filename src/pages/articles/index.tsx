@@ -5,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 
 import styles from "./articles.module.css"
+import {Header} from "@/pages/header/header";
 
 
 export async function getServerSideProps(ctx: { query: any; }) {
@@ -42,46 +43,52 @@ class ArticlePage extends React.Component<ArticleProp> {
     render(): React.ReactNode {
         if (this.state.article && Object.values(this.state.article).length > 0) {
             return (
-                <div className={styles.sliderContainer}>  
-                    <div className={styles.sliderImage}>
-                        <Image
-                            src={this.state.article.urlToImage} 
-                            alt="Article Image"
-                            style={{objectFit:"cover"}}
-                            priority={true}
-                            sizes="
+                <>
+                    <Header></Header>
+                    <div className={styles.sliderContainer}>
+                        <div className={styles.sliderImage}>
+                            <Image
+                                src={this.state.article.urlToImage}
+                                alt="Article Image"
+                                style={{objectFit:"cover"}}
+                                priority={true}
+                                sizes="
                                 (max-width: 400px),
                                 (max-width: 400px)
                             "
-                            fill={true}
-                        />
-                    </div>
-                    <div className={styles.sliderBody}>
-                        <h2>{this.state.article.title}</h2>
-                        <h4>{this.state.article.description}</h4>
-                        <p>{this.state.article.content}</p>
-                        <br/>
-                        <span>{this.state.article.author}</span>
-                        <br/>
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                            }}
-                        >
-                            <Link
-                                href={{
-                                    pathname: '/'
+                                fill={true}
+                            />
+                        </div>
+                        <div className={styles.sliderBody}>
+                            <h2>{this.state.article.title}</h2>
+                            <h4>{this.state.article.description}</h4>
+                            <p>{this.state.article.content}</p>
+                            <br/>
+                            <span>{this.state.article.author}</span>
+                            <br/>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
                                 }}
                             >
-                                Return
-                            </Link>
-                        </button>
+                                <Link
+                                    href={{
+                                        pathname: '/'
+                                    }}
+                                >
+                                    Return
+                                </Link>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </>
+
             );
         }
-        return null;
+        return (
+            <></>
+        );
     }
 }
 

@@ -1,20 +1,20 @@
 .sliderContainer {
+    width: 80vw;
+    margin: 0 auto;
     display: flex;
-    max-width: 1275px;
-    justify-content: space-around;
 }
 
 .sliderImage {
     display: flex;
     position: relative;
-    height: 400px; 
-    width: 400px;
+    height: 20vw;
+    width: 20vw;
 }
 
 .sliderBody {
-    width: 800px;
+    width: 60vw;
     display: flex;
-    margin: 25px 25px;
+    padding: 25px 25px;
     flex-direction: column;
     justify-content: space-between;
 }

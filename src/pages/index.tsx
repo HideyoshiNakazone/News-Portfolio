@@ -1,3 +1,5 @@
+import {Header} from "./header/header";
+
 import HeadlinesSlider from "@/components/headlines_slider/headlines_slider";
 import { ISearch } from "@/interface/search.interface";
 import { NewsService } from "@/service/newsService";
@@ -16,9 +18,11 @@ class HomePage extends React.Component {
     fetchTopHeadlines() {
         fetch('/api/news/headlines').then(res => {
             res.json().then(search => {
-                this.setState({
-                    search: search
-                });
+                if (search && search.status === "ok") {
+                    this.setState({
+                        search: search
+                    });
+                }
             })
         })
     }
@@ -26,17 +30,25 @@ class HomePage extends React.Component {
     componentDidMount() {
         this.fetchTopHeadlines();
     }
+
+    is_valid_search(): boolean {
+        return !!this.state.search &&
+            !!this.state.search.articles &&
+            this.state.search.articles.length > 0;
+    }
     
     render(): React.ReactNode {
-        if (this.state.search) {
+        if (!this.is_valid_search()) {
             return (
-                <>
-                    <h1>Hideyoshi News</h1>
-                    <HeadlinesSlider search={(this.state.search)}/>
-                </>
+                <></>
             )
         }
-        return null;
+        return (
+            <>
+                <Header></Header>
+                <HeadlinesSlider search={(this.state.search)}/>
+            </>
+        )
     }
 }
 

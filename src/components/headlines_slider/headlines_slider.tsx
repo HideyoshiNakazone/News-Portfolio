@@ -1,3 +1,5 @@
+import styles from "./headlines_slider.module.css"
+
 import { ISearch } from "@/interface/search.interface";
 import News from "./news/news";
 
@@ -16,30 +18,32 @@ interface HeadlineProp {
 class HeadlinesSlider extends React.Component<HeadlineProp> {
 
     buildArticleList() {
-        if (this.props.search.articles) {
+        if (!!this.props.search.articles && this.props.search.articles.length > 0) {
             return this.props.search.articles.map(a => (
                 <SwiperSlide key={a.title}>
                     <News article={a} />
                 </SwiperSlide>
             ))
         }
-        return null;
+        return (
+            <></>
+        );
     }
 
     render(): React.ReactNode {
         SwiperCore.use([Autoplay])
-
         return (
-            <>  
+            <div className={styles.slider_body}>
                 <Swiper
                     slidesPerView={1}
                     autoplay={{
                         delay: 20000
                     }}
+                    className={styles.slider}
                 >
                     {this.buildArticleList()}
                 </Swiper>
-            </>
+            </div>
         )
     }
 }

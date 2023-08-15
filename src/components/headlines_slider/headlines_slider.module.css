@@ -1,0 +1,13 @@
+.slider_body {
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.slider {
+    width: 80vw;
+    margin: 0 auto;
+}
