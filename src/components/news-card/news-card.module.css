@@ -1,0 +1,28 @@
+.sliderContainer {
+    display: flex;
+    max-width: 1275px;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.sliderImage {
+    display: flex;
+    position: relative;
+    height: 400px; 
+    width: 400px;
+}
+.emptySliderImage {
+    background: grey;
+    display: flex;
+    position: relative;
+    height: 400px;
+    width: 400px;
+}
+
+.sliderBody {
+    width: 800px;
+    display: flex;
+    margin: 25px 25px;
+    flex-direction: column;
+    justify-content: space-between;
+}
