@@ -1,7 +1,9 @@
+"use server";
+
 import HeadlinesSlider from "@/components/headlines-slider/headlines-slider";
 import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
-import {getTopHeadlines} from "@/services/news.service";
 import Header from "@/components/header/header";
+import {getTopHeadlines} from "@/services/news-service-helper";
 
 
 const Home = async () => {
@@ -9,12 +11,11 @@ const Home = async () => {
 
     await queryClient.prefetchQuery({
         queryKey: ['news', 'top-headlines'],
-        queryFn: getTopHeadlines
+        queryFn: getTopHeadlines,
     });
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <Header></Header>
             <HeadlinesSlider/>
         </HydrationBoundary>
     );

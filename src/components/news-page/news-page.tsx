@@ -1,11 +1,14 @@
-import styles from "./news-card.module.css";
+'use client';
+
 import {NewsArticle} from "@/types/news-article.type";
+import styles from "@/components/news-card/news-card.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import {useQuery} from "@tanstack/react-query";
+import {getFirstArticleFromSearchByTitle} from "@/services/news-service-helper";
 
-
-type NewsCardProps = {
-    article: NewsArticle;
+type NewsPageProps = {
+    articleTitle: string;
 }
 
 
@@ -36,17 +39,25 @@ const generateArticleImage = (article: NewsArticle) => {
 }
 
 
-const NewsCard = (props: NewsCardProps) => {
-    let article = props.article
+const NewsPage = (props: NewsPageProps) => {
+    const { data } = useQuery({
+        queryKey: ['news', props.articleTitle],
+        queryFn: async () => getFirstArticleFromSearchByTitle(
+            props.articleTitle
+        )
+    })
 
+    if (data === undefined) {
+        throw new Error("No article found");
+    }
 
     return (
         <div className={styles.sliderContainer}>
-            {generateArticleImage(article)}
+            {generateArticleImage(data)}
             <div className={styles.sliderBody}>
-                <h2>{article.title}</h2>
-                <p>{article.description}</p>
-                <span>{article.author}</span>
+                <h2>{data.title}</h2>
+                <p>{data.description}</p>
+                <span>{data.author}</span>
                 <br/>
                 <button
                     onClick={(e) => {
@@ -56,18 +67,20 @@ const NewsCard = (props: NewsCardProps) => {
                 >
                     <Link
                         href={{
-                            pathname: '/article',
+                            pathname: '/',
                             query: {
-                                title: article.title
+                                title: data.title
                             }
                         }}
                     >
-                        Read More
+                        Return
                     </Link>
                 </button>
             </div>
         </div>
-    )
+    );
 }
 
-export default NewsCard;
+
+export default NewsPage;
+;

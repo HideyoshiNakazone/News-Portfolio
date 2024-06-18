@@ -15,6 +15,6 @@ export const NewsArticle = z.object({
     url: z.string(),
     urlToImage: z.string(),
     publishedAt: z.string(),
-    content: z.string(),
+    content: z.optional(z.string()),
 })
 export type NewsArticle = z.infer<typeof NewsArticle>
