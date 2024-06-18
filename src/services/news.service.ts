@@ -7,7 +7,7 @@ export class NewsService extends BaseService {
     private static apiURL = "https://newsapi.org/v2";
     private static apiKey?: string = process.env.API_KEY;
 
-    private static MAX_RETRIES = 3;
+    private static MAX_RETRIES = 5;
 
     public static async getTopHeadlines(): Promise<NewsSearch> {
         let params = {

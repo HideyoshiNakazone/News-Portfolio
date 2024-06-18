@@ -1,7 +1,6 @@
 'use client';
 
 import {NewsArticle} from "@/types/news-article.type";
-import styles from "@/components/news-card/news-card.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import {useQuery} from "@tanstack/react-query";
@@ -15,32 +14,25 @@ type NewsPageProps = {
 const generateArticleImage = (article: NewsArticle) => {
     if (!!article.urlToImage) {
         return (
-            <div className={styles.sliderImage}>
-                <Image
-                    src={article.urlToImage}
-                    unoptimized={true}
-                    alt="Article Image"
-                    style={{objectFit:"cover"}}
-                    priority={true}
-                    sizes="
-                        (max-width: 400px),
-                        (max-width: 400px)
-                    "
-                    fill={true}
-
-                />
-            </div>
+            <Image
+                className="h-48 w-full object-cover md:h-full md:w-48"
+                src={article.urlToImage}
+                alt="Article Image"
+                unoptimized={true}
+                width={400}
+                height={400}
+            />
         )
     }
 
     return (
-        <div className={styles.emptySliderImage}></div>
+        <div className="h-48 w-full object-cover md:h-full md:w-48"></div>
     )
 }
 
 
 const NewsPage = (props: NewsPageProps) => {
-    const { data } = useQuery({
+    const {data} = useQuery({
         queryKey: ['news', props.articleTitle],
         queryFn: async () => getFirstArticleFromSearchByTitle(
             props.articleTitle
@@ -52,30 +44,33 @@ const NewsPage = (props: NewsPageProps) => {
     }
 
     return (
-        <div className={styles.sliderContainer}>
-            {generateArticleImage(data)}
-            <div className={styles.sliderBody}>
-                <h2>{data.title}</h2>
-                <p>{data.description}</p>
-                <span>{data.author}</span>
-                <br/>
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }}
-                >
-                    <Link
-                        href={{
-                            pathname: '/',
-                            query: {
-                                title: data.title
-                            }
-                        }}
-                    >
-                        Return
-                    </Link>
-                </button>
+        <div className="max-w-md mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+            <div className="md:flex">
+                <div className="md:shrink-0">
+                    {generateArticleImage(data)}
+                </div>
+                <div className="p-8 flex-col justify-around">
+                    <h2 className="font-bold text-large mb-4">{data.title}</h2>
+                    <p className="font-medium text-medium mb-2">{data.description}</p>
+                    <span className="font-light text-small">{data.author}</span>
+                    <div className="flex justify-center mt-14">
+                        <button
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                            }}
+                        >
+                            <Link
+                                href={{
+                                    pathname: '/'
+                                }}
+                            >
+                                Return
+                            </Link>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     );
