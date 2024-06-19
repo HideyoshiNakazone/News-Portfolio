@@ -12,7 +12,7 @@ export class NewsService extends BaseService {
     public static async getTopHeadlines(): Promise<NewsSearch> {
         let params = {
             "country": "us",
-            "pageSize": 5,
+            "pageSize": 10,
             "page": 1,
             "apiKey": this.apiKey
         };
@@ -20,15 +20,18 @@ export class NewsService extends BaseService {
 
         let count = 0;
         try {
-            return await NewsService.get<NewsSearch>(url, params);
+            const results = await NewsService.get<NewsSearch>(url, params);
+            results.articles = results.articles?.filter(article => !!article.urlToImage);
+
+            return results;
         } catch (e) {
-            while (count < NewsService.MAX_RETRIES) {
-                count++;
+            while (count <= NewsService.MAX_RETRIES) {
                 try {
                     params.page += 1;
                     return await NewsService.get<NewsSearch>(url, params);
                 } catch (e) {
                     console.log("Failed to fetch data, retrying... - " + count);
+                    count++;
                 }
             }
         }

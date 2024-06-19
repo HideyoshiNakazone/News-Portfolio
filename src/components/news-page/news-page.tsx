@@ -15,7 +15,7 @@ const generateArticleImage = (article: NewsArticle) => {
     if (!!article.urlToImage) {
         return (
             <Image
-                className="h-48 w-full object-cover md:h-full md:w-48"
+                className="h-48 w-full object-cover md:h-80"
                 src={article.urlToImage}
                 alt="Article Image"
                 unoptimized={true}
@@ -26,7 +26,7 @@ const generateArticleImage = (article: NewsArticle) => {
     }
 
     return (
-        <div className="h-48 w-full object-cover md:h-full md:w-48"></div>
+        <div className="h-48 w-full object-cover md:h-80"></div>
     )
 }
 
@@ -44,8 +44,8 @@ const NewsPage = (props: NewsPageProps) => {
     }
 
     return (
-        <div className="max-w-md mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-            <div className="md:flex">
+        <div className="flex max-w-[80%] mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+            <div className="md:min-h-[400px] md:min-w-[80vw]">
                 <div className="md:shrink-0">
                     {generateArticleImage(data)}
                 </div>

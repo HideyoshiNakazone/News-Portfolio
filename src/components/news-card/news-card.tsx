@@ -33,8 +33,8 @@ const NewsCard = (props: NewsCardProps) => {
 
 
     return (
-        <div className="max-w-md mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-            <div className="md:flex">
+        <div className="flex max-w-[80%] mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+            <div className="md:flex md:min-h-[400px] md:min-w-[80vw]">
                 <div className="md:shrink-0">
                     {generateArticleImage(article)}
                 </div>
