@@ -2,7 +2,6 @@
 
 import HeadlinesSlider from "@/components/headlines-slider/headlines-slider";
 import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
-import Header from "@/components/header/header";
 import {getTopHeadlines} from "@/services/news-service-helper";
 
 

@@ -1,11 +1,10 @@
 "use client";
 
-import styles from "./headlines-slider.module.css"
 import NewsCard from "@/components/news-card/news-card";
 
 import {useQuery} from "@tanstack/react-query";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Autoplay, FreeMode} from "swiper/modules";
+import {Autoplay} from "swiper/modules";
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -29,7 +28,7 @@ const HeadlinesSlider = () => {
     const buildArticleList = (news: NewsSearch) => {
         return news.articles?.map(a => (
             <SwiperSlide key={a.title}
-                className={styles.slider}
+                className="w-[80vw]"
             >
                 <NewsCard article={a}/>
             </SwiperSlide>
@@ -38,7 +37,7 @@ const HeadlinesSlider = () => {
 
 
     return (
-        <div className={styles.slider_body}>
+        <div className="h-[85vh] flex justify-center">
             <Swiper
                 modules={[Autoplay]}
                 slidesPerView={1}

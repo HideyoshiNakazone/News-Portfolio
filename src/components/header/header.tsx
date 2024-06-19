@@ -1,12 +1,10 @@
-import styles from "./header.module.css"
-
 import React from "react";
 
 
 const Header = () => {
     return (<>
-        <div className={styles.header}>
-            <h1 className={styles.header_text}>Hideyoshi News</h1>
+        <div className="h-[15vh] flex items-center justify-center">
+            <h1 className="text-5xl	align-middle">Hideyoshi News</h1>
         </div>
     </>)
 }
